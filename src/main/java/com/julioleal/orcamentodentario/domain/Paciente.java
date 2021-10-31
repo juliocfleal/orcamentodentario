@@ -1,13 +1,35 @@
 package com.julioleal.orcamentodentario.domain;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Paciente {
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+
+@Entity
+public class Paciente implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
+	
+	@ManyToOne
+	@JoinColumn(name = "endereco_id")
 	private Endereco endereco;
 	private String cpf;
 	private String telefone;
+	
+	@OneToOne(cascade = CascadeType.ALL, mappedBy = "paciente")
+	private Orcamento orcamento;
 	
 	
 	public Paciente(Integer id, String nome, Endereco endereco, String cpf, String telefone) {

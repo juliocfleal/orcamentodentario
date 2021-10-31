@@ -1,10 +1,30 @@
 package com.julioleal.orcamentodentario.domain;
 
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-public class Dentista {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
+@Entity
+public class Dentista implements Serializable {
+	private static final long serialVersionUID = 1L;
+	
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
+	
+	@OneToMany(mappedBy = "dentista")
+	private List<Orcamento> orcamentos = new ArrayList<>();
+	
+	
 	public Dentista(Integer id, String nome) {
 		super();
 		this.id = id;
@@ -46,6 +66,14 @@ public class Dentista {
 			return false;
 		Dentista other = (Dentista) obj;
 		return Objects.equals(id, other.id);
+	}
+
+	public List<Orcamento> getOrcamentos() {
+		return orcamentos;
+	}
+
+	public void setOrcamentos(List<Orcamento> orcamentos) {
+		this.orcamentos = orcamentos;
 	}
 	
 	

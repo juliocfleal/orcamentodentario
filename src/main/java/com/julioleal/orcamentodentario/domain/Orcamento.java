@@ -1,5 +1,6 @@
 package com.julioleal.orcamentodentario.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
@@ -8,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
@@ -16,8 +18,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.julioleal.orcamentodentario.enums.TipoPagamento;
 
 @Entity
-public class Orcamento {
-	
+public class Orcamento implements Serializable {
+	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -33,10 +35,10 @@ public class Orcamento {
 	@MapsId
 	private Paciente paciente;
 	
-	@JsonIgnore
-	@OneToOne
+
+
+	@ManyToOne
 	@JoinColumn(name="dentista_id")
-	@MapsId
 	private Dentista dentista;
 	
 	
